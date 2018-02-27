@@ -1,0 +1,45 @@
+{
+  "name": "firetower",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel ./src --out-dir ./dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mihalik/firetower.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mihalik/firetower/issues"
+  },
+  "homepage": "https://github.com/mihalik/firetower#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "create-react-app": "^1.5.2",
+    "prettier": "^1.10.2"
+  },
+  "dependencies": {
+    "material-ui": "^1.0.0-beta.34",
+    "material-ui-icons": "^1.0.0-beta.35",
+    "react": "^16.2.0",
+    "react-broadcast": "^0.6.2",
+    "react-dom": "^16.2.0",
+    "react-firestore": "^0.6.0",
+    "react-router-dom": "^4.2.2",
+    "typeface-roboto": "0.0.54"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react",
+      "stage-0"
+    ]
+  }
+}
