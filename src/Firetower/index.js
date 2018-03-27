@@ -1,8 +1,8 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
-import {MuiThemeProvider} from "material-ui/styles";
-import {FirestoreProvider} from "react-firestore";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { MuiThemeProvider } from "material-ui/styles";
+import { FirestoreProvider } from "react-firestore";
 import Reboot from "material-ui/Reboot";
 import "typeface-roboto";
 
@@ -11,7 +11,7 @@ import PageProvider from "../Page/provider";
 import FirebaseAuth from "../FirebaseAuth";
 import FirebaseAuthProvider from "../FirebaseAuth/provider";
 
-const RouteWrap = ({component: Component, auth, login, ...routeProps}) => {
+const RouteWrap = ({ component: Component, auth, login, ...routeProps }) => {
   if (routeProps.externalPath || routeProps.isUserMenu || !Component) {
     return null;
   }
@@ -53,24 +53,24 @@ class RoutesInner extends Component {
   static propTypes = {
     routes: PropTypes.object.isRequired,
     defaultPage: PropTypes.string,
-    renderAppTitle: PropTypes.func.isRequired,
+    renderPageTitle: PropTypes.func.isRequired
   };
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.object
   };
   handleLogin = () => {
-    const {routes, defaultPage} = this.props;
+    const { routes, defaultPage } = this.props;
     // After login, go to default page or the first page in the routes object
     const finalDefaultPage = defaultPage || Object.keys(routes)[0];
     this.context.router.history.push(routes[finalDefaultPage].path);
   };
   handleLogout = () => {
-    const {routes} = this.props;
+    const { routes } = this.props;
     // After logout, go to the 'login' page
     this.context.router.history.push(`${routes.login.path}?reason=logout`);
   };
   render() {
-    const {routes, defaultPage, renderAppTitle} = this.props;
+    const { routes, defaultPage, renderPageTitle } = this.props;
     console.log("firetower", this.props);
     return (
       <FirebaseAuthProvider
@@ -85,7 +85,7 @@ class RoutesInner extends Component {
                 Object.keys(routes).map(key => (
                   <RouteWrap
                     auth={auth}
-                    renderAppTitle={renderAppTitle}
+                    renderPageTitle={renderPageTitle}
                     routes={routes}
                     {...routes[key]}
                   />
