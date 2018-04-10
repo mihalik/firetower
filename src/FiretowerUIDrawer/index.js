@@ -46,7 +46,6 @@ class FiretowerDrawer extends React.Component {
                     externalLink,
                     icon: Icon,
                   } = routes[key];
-                  console.log("Route", routes[key]);
                   if (hideFromMenu || isUserMenu) {
                     return null;
                   }

@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { withStyles } from "material-ui/styles";
+import React, {Component} from "react";
+import PropTypes from "prop-types";
+import {Redirect} from "react-router-dom";
+import {withStyles} from "material-ui/styles";
 import queryString from "query-string";
 
 import FirebaseAuth from "../FirebaseAuth";
@@ -21,25 +22,25 @@ class LoginWrap extends Component {
 
 class Login extends Component {
   static propTypes = {
-    loggedInRedirec: PropTypes.string.isRequired
+    loggedInRedirect: PropTypes.string.isRequired,
   };
-  state = { email: "", password: "" };
+  state = {email: "", password: ""};
   handleFormSubmit = event => {
     event.preventDefault();
-    const { email, password } = this.state;
-    const { auth } = this.props;
+    const {email, password} = this.state;
+    const {auth} = this.props;
     auth.login(email, password);
   };
   handleEmailInput = event => {
-    this.setState({ email: event.target.value });
+    this.setState({email: event.target.value});
   };
   handlePasswordInput = event => {
-    this.setState({ password: event.target.value });
+    this.setState({password: event.target.value});
   };
   render() {
-    const { location, auth, loggedInRedirect } = this.props;
-    const { email, password } = this.state;
-    const qs = queryString.parse(location.search);
+    const {auth, loggedInRedirect} = this.props;
+    const {email, password} = this.state;
+    const qs = queryString.parse(window.location.search);
     const isLogout = !!(qs.reason && qs.reason === "logout");
     if (auth.user) {
       return <Redirect to={loggedInRedirect} />;
@@ -61,4 +62,4 @@ class Login extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(LoginWrap);
+export default withStyles(styles, {withTheme: true})(LoginWrap);

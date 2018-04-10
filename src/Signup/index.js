@@ -1,12 +1,10 @@
-import React, { Component } from "react";
-import { Formik } from "formik";
-import { Redirect } from "react-router-dom";
-import { withStyles } from "material-ui/styles";
+import React, {Component} from "react";
+import {Formik} from "formik";
+import {Redirect} from "react-router-dom";
+import {withStyles} from "material-ui/styles";
 
-import { NAV } from "../Routes";
-import config from "../config";
-import FirebaseAuth from "../shared/components/FirebaseAuth";
-import SignupDisplay from ".display";
+import FirebaseAuth from "../FirebaseAuth";
+import SignupDisplay from "./display";
 
 const styles = theme => ({});
 
@@ -30,7 +28,7 @@ class Signup extends Component {
       return errors;
     }
 
-    const { create, location } = this.props;
+    const {create, location} = this.props;
     const signup = new Date();
     const {
       email,
@@ -63,7 +61,7 @@ class Signup extends Component {
       "day",
       "month",
       "year",
-      "gender"
+      "gender",
     ];
     requiredFields.forEach(key => {
       if (!values[key]) {
@@ -86,7 +84,7 @@ class Signup extends Component {
     return errors;
   };
   render() {
-    const { classes, error, hasResolved, user, plan } = this.props;
+    const {classes, error, hasResolved, user, plan} = this.props;
     console.log(this.props);
     if (!hasResolved) {
       return <Loading />;
@@ -115,7 +113,7 @@ class Signup extends Component {
       month: "1",
       year: "1980",
       gender: null,
-      terms: false
+      terms: false,
     };
     return (
       <Formik
@@ -130,4 +128,4 @@ class Signup extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(NewWrap);
+export default withStyles(styles, {withTheme: true})(SignupWrap);

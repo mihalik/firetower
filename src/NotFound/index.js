@@ -1,16 +1,17 @@
 import React, {Component} from "react";
 import Typography from "material-ui/Typography";
-import {Page} from "firetower";
+import Page from "../Page";
 
-export default class UserProfile extends Component {
+export default class NotFound extends Component {
   render() {
+    const {defaultPage} = this.props;
     return (
       <Page>
         <Typography type="display1" gutterBottom>
-          User profile
+          Page not found
         </Typography>
         <Typography type="body1" gutterBottom>
-          User profile information goes here.
+          <Link to={defaultPage}>Return</Link>
         </Typography>
       </Page>
     );

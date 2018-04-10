@@ -1,17 +1,23 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import { MuiThemeProvider } from "material-ui/styles";
-import { FirestoreProvider } from "react-firestore";
-import Reboot from "material-ui/Reboot";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
+import {MuiThemeProvider} from "material-ui/styles";
+import {FirestoreProvider} from "react-firestore";
+import CssBaseline from "material-ui/CssBaseline";
 import "typeface-roboto";
 
 import theme from "./baseTheme";
 import PageProvider from "../Page/provider";
 import FirebaseAuth from "../FirebaseAuth";
 import FirebaseAuthProvider from "../FirebaseAuth/provider";
+import NotFound from "../NotFound";
 
-const RouteWrap = ({ component: Component, auth, login, ...routeProps }) => {
+const RouteWrap = ({component: Component, auth, login, ...routeProps}) => {
   if (routeProps.externalPath || routeProps.isUserMenu || !Component) {
     return null;
   }
@@ -53,24 +59,45 @@ class RoutesInner extends Component {
   static propTypes = {
     routes: PropTypes.object.isRequired,
     defaultPage: PropTypes.string,
-    renderPageTitle: PropTypes.func.isRequired
+    renderPageTitle: PropTypes.func.isRequired,
+    pageNotFound: PropTypes.element,
   };
   static contextTypes = {
-    router: PropTypes.object
+    router: PropTypes.object,
+  };
+  defaultProps = {
+    pageNotFound: NotFound,
   };
   handleLogin = () => {
-    const { routes, defaultPage } = this.props;
+    const {routes, defaultPage} = this.props;
     // After login, go to default page or the first page in the routes object
     const finalDefaultPage = defaultPage || Object.keys(routes)[0];
     this.context.router.history.push(routes[finalDefaultPage].path);
   };
   handleLogout = () => {
-    const { routes } = this.props;
+    const {routes} = this.props;
     // After logout, go to the 'login' page
     this.context.router.history.push(`${routes.login.path}?reason=logout`);
   };
+  renderRouteChildren = auth => {
+    const {routes, defaultPage, renderPageTitle, pageNotFound} = this.props;
+    const elements = Object.keys(routes).map(key => (
+      <RouteWrap
+        auth={auth}
+        renderPageTitle={renderPageTitle}
+        routes={routes}
+        key={key}
+        {...routes[key]}
+      />
+    ));
+    elements.push(
+      <Route path="/404" key="404route" component={pageNotFound} />
+    );
+    elements.push(<Redirect to="/404" key="404redirect" />);
+    return elements;
+  };
   render() {
-    const { routes, defaultPage, renderPageTitle } = this.props;
+    const {routes, defaultPage, renderPageTitle, pageNotFound} = this.props;
     console.log("firetower", this.props);
     return (
       <FirebaseAuthProvider
@@ -79,18 +106,9 @@ class RoutesInner extends Component {
       >
         <FirestoreProvider firebase={window.firebase}>
           <MuiThemeProvider theme={theme}>
-            <Reboot />
+            <CssBaseline />
             <FirebaseAuth>
-              {auth =>
-                Object.keys(routes).map(key => (
-                  <RouteWrap
-                    auth={auth}
-                    renderPageTitle={renderPageTitle}
-                    routes={routes}
-                    {...routes[key]}
-                  />
-                ))
-              }
+              {auth => <Switch>{this.renderRouteChildren(auth)}</Switch>}
             </FirebaseAuth>
           </MuiThemeProvider>
         </FirestoreProvider>
