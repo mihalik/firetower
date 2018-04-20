@@ -8,15 +8,14 @@ import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 import IconButton from "material-ui/IconButton";
-import MenuIcon from "material-ui-icons/Menu";
-import AccountCircleIcon from "material-ui-icons/AccountCircle";
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import {PROVIDER_NAME} from "./provider";
-import FirebaseAuth from "../FirebaseAuth";
 import UserMenu from "../UserMenu";
-import Drawer from "../Drawer";
+import FiretowerUIDrawer from "../FiretowerUIDrawer";
 
-const styles = {
+const styles = theme => ({
   logo: {
     height: 28,
   },
@@ -33,7 +32,7 @@ const styles = {
   content: {
     padding: "2rem",
   },
-};
+});
 
 class FiretowerPageInner extends React.Component {
   static propTypes = {
@@ -50,7 +49,6 @@ class FiretowerPageInner extends React.Component {
   };
 
   render() {
-    console.log("page", this.props);
     const {drawerOpen} = this.state;
     const {
       classes,
@@ -61,17 +59,17 @@ class FiretowerPageInner extends React.Component {
     } = this.props;
     return (
       <div className={classes.root}>
-        <Drawer
+        <FiretowerUIDrawer
           routes={routes}
           open={drawerOpen}
           onToggle={this.handleDrawerToggle}
         />
         {!hidePageChrome && (
-          <AppBar position="static">
+          <AppBar position="static" className={classes.appBar}>
             <Toolbar>
               <IconButton
                 className={classes.menuButton}
-                color="contrast"
+                color="inherit"
                 aria-label="Menu"
                 onClick={this.handleDrawerToggle}
               >
@@ -100,4 +98,4 @@ class FiretowerPage extends React.Component {
   }
 }
 
-export default withStyles(styles)(FiretowerPage);
+export default withStyles(styles, {withTheme: true})(FiretowerPage);

@@ -4,32 +4,29 @@ import {Redirect} from "react-router-dom";
 import {withStyles} from "material-ui/styles";
 import queryString from "query-string";
 
-import FirebaseAuth from "../FirebaseAuth";
-import TempMessage from "../TempMessage";
+import Auth from "../Auth";
+import Snackbar from "../Snackbar";
 import LoginDisplay from "./display";
 
 const styles = theme => ({});
 
 class LoginWrap extends Component {
   render() {
-    return (
-      <FirebaseAuth>
-        {auth => <Login auth={auth} {...this.props} />}
-      </FirebaseAuth>
-    );
+    return <Auth>{auth => <Login auth={auth} {...this.props} />}</Auth>;
   }
 }
 
 class Login extends Component {
   static propTypes = {
     loggedInRedirect: PropTypes.string.isRequired,
+    auth: PropTypes.object.isRequired,
   };
   state = {email: "", password: ""};
   handleFormSubmit = event => {
     event.preventDefault();
     const {email, password} = this.state;
     const {auth} = this.props;
-    auth.login(email, password);
+    auth.actions.login(email, password);
   };
   handleEmailInput = event => {
     this.setState({email: event.target.value});
@@ -48,7 +45,7 @@ class Login extends Component {
 
     return (
       <div>
-        {isLogout && <TempMessage message="Logged out" />}
+        {isLogout && <Snackbar message="Logged out" />}
         <LoginDisplay
           errorMessage={auth.error ? auth.error.message : undefined}
           email={email}

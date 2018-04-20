@@ -1,26 +1,26 @@
-import React, { Component } from "react";
-import { withStyles } from "material-ui/styles";
-import Card, { CardContent, CardActions, CardMedia } from "material-ui/Card";
+import React, {Component} from "react";
+import {withStyles} from "material-ui/styles";
+import Card, {CardContent, CardActions, CardMedia} from "material-ui/Card";
 import Typography from "material-ui/Typography";
 import Grid from "material-ui/Grid";
-import EmailIcon from "material-ui-icons/Email";
+import EmailIcon from "@material-ui/icons/Email";
 import Button from "material-ui/Button";
-import Input, { InputAdornment } from "material-ui/Input";
+import Input, {InputAdornment} from "material-ui/Input";
 
 const styles = theme => ({
   card: {
     marginTop: 100,
-    minWidth: 300
+    minWidth: 300,
   },
   media: {
     backgroundColor: theme.palette.primary.dark,
-    height: 20
+    height: 20,
   },
   adornment: {
     color: theme.palette.text.secondary,
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
-  adornmentIcon: { paddingTop: 6 }
+  adornmentIcon: {paddingTop: 6},
 });
 
 class PasswordResetDisplay extends Component {
@@ -29,7 +29,7 @@ class PasswordResetDisplay extends Component {
     message: PropTypes.string,
     email: PropTypes.string.isRequired,
     onFormSubmit: PropTypes.func.isRequired,
-    onEmailInput: PropTypes.func.isRequired
+    onEmailInput: PropTypes.func.isRequired,
   };
   render() {
     const {
@@ -38,7 +38,7 @@ class PasswordResetDisplay extends Component {
       message,
       email,
       onFormSubmit,
-      onEmailInput
+      onEmailInput,
     } = this.props;
     return (
       <form onSubmit={onFormSubmit}>
@@ -81,4 +81,4 @@ class PasswordResetDisplay extends Component {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(PasswordReset);
+export default withStyles(styles, {withTheme: true})(PasswordReset);

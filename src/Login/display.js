@@ -6,13 +6,12 @@ import Card, {CardContent, CardActions, CardMedia} from "material-ui/Card";
 import Typography from "material-ui/Typography";
 import Input, {InputAdornment} from "material-ui/Input";
 import Grid from "material-ui/Grid";
-import EmailIcon from "material-ui-icons/Email";
-import LockIcon from "material-ui-icons/Lock";
+import EmailIcon from "@material-ui/icons/Email";
+import LockIcon from "@material-ui/icons/Lock";
 import Button from "material-ui/Button";
 import queryString from "query-string";
 
-import FirebaseAuth from "../FirebaseAuth";
-import TempMessage from "../TempMessage";
+import Snackbar from "../Snackbar";
 
 // The original design for this login page is kinda based on this:
 // https://dribbble.com/shots/2089361-Login-page
@@ -23,7 +22,7 @@ const styles = theme => ({
     width: 300,
     margin: "0 auto",
   },
-  media: {
+  cardTop: {
     backgroundColor: theme.palette.primary.dark,
     height: 20,
   },
@@ -58,7 +57,7 @@ class LoginDisplay extends Component {
     return (
       <form onSubmit={onFormSubmit}>
         <Card className={classes.card}>
-          <CardMedia className={classes.media} />
+          <div className={classes.cardTop} />
           {errorMessage && <Typography>{errorMessage}</Typography>}
           <CardContent>
             <div>

@@ -13,12 +13,12 @@ import "typeface-roboto";
 
 import theme from "./baseTheme";
 import PageProvider from "../Page/provider";
-import FirebaseAuth from "../FirebaseAuth";
-import FirebaseAuthProvider from "../FirebaseAuth/provider";
+import Auth from "../Auth";
+import AuthProvider from "../Auth/provider";
 import NotFound from "../NotFound";
 
 const RouteWrap = ({component: Component, auth, login, ...routeProps}) => {
-  if (routeProps.externalPath || routeProps.isUserMenu || !Component) {
+  if (routeProps.externalPath || !Component) {
     return null;
   }
   return (
@@ -45,7 +45,10 @@ const RouteWrap = ({component: Component, auth, login, ...routeProps}) => {
         // not admin, don't display anything.
         // NOTE: We should be better about what gets displayed in the future
         // and actually try and display a spinner and whatever.
-        if (props.requiresAdmin && (!auth.details || !auth.details.isAdmin)) {
+        if (
+          props.requiresAdmin &&
+          (!auth.user.details || !auth.user.details.isAdmin)
+        ) {
           display = empty;
         }
         // Otherwise, show the component
@@ -98,21 +101,17 @@ class RoutesInner extends Component {
   };
   render() {
     const {routes, defaultPage, renderPageTitle, pageNotFound} = this.props;
-    console.log("firetower", this.props);
     return (
-      <FirebaseAuthProvider
-        onLogin={this.handleLogin}
-        onLogout={this.handleLogout}
-      >
+      <AuthProvider onLogout={this.handleLogout}>
         <FirestoreProvider firebase={window.firebase}>
           <MuiThemeProvider theme={theme}>
             <CssBaseline />
-            <FirebaseAuth>
+            <Auth>
               {auth => <Switch>{this.renderRouteChildren(auth)}</Switch>}
-            </FirebaseAuth>
+            </Auth>
           </MuiThemeProvider>
         </FirestoreProvider>
-      </FirebaseAuthProvider>
+      </AuthProvider>
     );
   }
 }

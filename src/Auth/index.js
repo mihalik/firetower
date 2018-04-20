@@ -3,7 +3,7 @@ import {Subscriber} from "react-broadcast";
 
 import {PROVIDER_NAME} from "./provider";
 
-export default class FirebaseAuth extends Component {
+export default class Auth extends Component {
   render() {
     return (
       <Subscriber channel={PROVIDER_NAME}>{this.props.children}</Subscriber>

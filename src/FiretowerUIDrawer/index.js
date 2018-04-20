@@ -5,7 +5,7 @@ import {withStyles} from "material-ui/styles";
 import Drawer from "material-ui/Drawer";
 import List, {ListItem, ListItemText, ListItemIcon} from "material-ui/List";
 
-import FirebaseAuth from "../FirebaseAuth";
+import Auth from "../Auth";
 
 const styles = {
   list: {
@@ -23,9 +23,8 @@ class FiretowerDrawer extends React.Component {
 
   render() {
     const {classes, open, onToggle, routes} = this.props;
-    console.log("drawer", this.props);
     return (
-      <FirebaseAuth>
+      <Auth>
         {auth => (
           <Drawer
             anchor="left"
@@ -62,7 +61,7 @@ class FiretowerDrawer extends React.Component {
                     ? {button: true, component: "a", href: externalLink}
                     : {button: true, component: Link, to: path};
                   return (
-                    <ListItem {...itemProps}>
+                    <ListItem key={key} {...itemProps}>
                       <ListItemIcon>
                         <Icon />
                       </ListItemIcon>
@@ -74,7 +73,7 @@ class FiretowerDrawer extends React.Component {
             </div>
           </Drawer>
         )}
-      </FirebaseAuth>
+      </Auth>
     );
   }
 }

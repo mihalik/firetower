@@ -22,16 +22,16 @@ Limitations:
 
 ### Getting started
 
-1.  Create application (TODO)
-2.  Install Firetower (TODO)
-3.  Create page components and configure menu
+1. Create application (TODO)
+2. Install Firetower (TODO)
+3. Create page components and configure menu
 
 Simple example appplication (one page + external link, no auth):
 
 ```
 import {Page, Firetower} from 'firetower';
-import HomeIcon from "material-ui-icons/Home";
-import HelpIcon from "material-ui-icons/Help";
+import HomeIcon from "@material-ui/icons/Home";
+import HelpIcon from "@material-ui/icons/Help";
 
 const Home = () => <Page>This is the home page</Page>;
 

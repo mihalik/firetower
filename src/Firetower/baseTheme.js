@@ -1,6 +1,6 @@
 import {createMuiTheme} from "material-ui/styles";
-import primary from "material-ui/colors/blueGrey";
-import secondary from "material-ui/colors/deepOrange";
+import primary from "material-ui/colors/green";
+import secondary from "material-ui/colors/orange";
 import error from "material-ui/colors/red";
 
 // All the following keys are optional.

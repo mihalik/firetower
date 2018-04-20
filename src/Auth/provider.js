@@ -5,8 +5,9 @@ const auth = window.firebase.auth();
 const db = window.firebase.firestore();
 export const PROVIDER_NAME = "FiretowerAuth";
 
-export default class FirebaseAuthProvider extends Component {
+export default class AuthProvider extends Component {
   state = {user: null, error: null, message: null, hasResolved: false};
+
   constructor(props) {
     super(props);
     auth.onAuthStateChanged(user => {
@@ -16,29 +17,28 @@ export default class FirebaseAuthProvider extends Component {
       }
     });
   }
+
   loadUserDetails = () => {
     const docRef = db.collection("users").doc(auth.currentUser.uid);
     docRef.get().then(doc => {
       if (doc.exists) {
-        this.setState({details: doc.data()});
+        // Add details to existing user object
+        let user = this.state.user;
+        user.details = doc.data();
+        this.setState({user});
       }
     });
   };
+
   login = (email, password) => {
-    const {onLogin} = this.props;
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        // TODO: This is a huge hack to give the auth time to complete
-        // so the results of onLogin can have an appropriate auth object
-        onLogin && setTimeout(onLogin, 100);
-      })
-      .catch(error => {
-        this.setState({error});
-      });
+    // No need to handle the success results of signin because it will be handled by
+    // the state change handler in the constructor.
+    auth.signInWithEmailAndPassword(email, password).catch(error => {
+      this.setState({error});
+    });
   };
+
   create = (email, password, repeatPassword, profile) => {
-    const {onLogin} = this.props;
     if (password !== repeatPassword) {
       const error = {message: "Passwords must match"};
       this.setState({error});
@@ -51,7 +51,6 @@ export default class FirebaseAuthProvider extends Component {
           auth.currentUser.sendEmailVerification();
           const userProfile = db.collection("users").doc(auth.currentUser.uid);
           userProfile.set(profile);
-          onLogin && onLogin();
         })
         .catch(error => {
           this.setState({error});
@@ -60,12 +59,14 @@ export default class FirebaseAuthProvider extends Component {
       this.setState({error});
     }
   };
+
   logout = () => {
     const {onLogout} = this.props;
     auth.signOut();
     this.setState({user: null, details: null, error: null});
     onLogout && onLogout();
   };
+
   forgot = email => {
     auth
       .sendPasswordResetEmail(email)
@@ -78,14 +79,16 @@ export default class FirebaseAuthProvider extends Component {
         this.setState({error});
       });
   };
+
   render() {
     const authProps = {
-      login: this.login,
-      create: this.create,
-      logout: this.logout,
-      forgot: this.forgot,
+      actions: {
+        login: this.login,
+        create: this.create,
+        logout: this.logout,
+        forgot: this.forgot,
+      },
       user: this.state.user,
-      details: this.state.details,
       error: this.state.error,
       message: this.state.message,
       hasResolved: this.state.hasResolved,

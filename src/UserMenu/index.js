@@ -5,9 +5,9 @@ import {withStyles} from "material-ui/styles";
 import Menu, {MenuItem} from "material-ui/Menu";
 import Button from "material-ui/Button";
 import IconButton from "material-ui/IconButton";
-import AccountCircleIcon from "material-ui-icons/AccountCircle";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-import FirebaseAuth from "../FirebaseAuth";
+import Auth from "../Auth";
 
 const styles = {
   base: {
@@ -31,7 +31,7 @@ class UserMenu extends React.Component {
   };
 
   handleLogout = auth => () => {
-    auth.logout();
+    auth.actions.logout();
     this.setState({anchorEl: null});
   };
 
@@ -71,6 +71,7 @@ class UserMenu extends React.Component {
             }
             return (
               <MenuItem
+                key={key}
                 component={Link}
                 to={path}
                 onClick={this.handleMenuClose}
@@ -86,10 +87,9 @@ class UserMenu extends React.Component {
   }
 
   renderLogin() {
-    console.log("login", this.props);
     const {routes} = this.props;
     return (
-      <Button color="contrast" component={Link} to={routes.login.path}>
+      <Button color="inherit" component={Link} to={routes.login.path}>
         Login
       </Button>
     );
@@ -97,14 +97,14 @@ class UserMenu extends React.Component {
 
   render() {
     return (
-      <FirebaseAuth>
+      <Auth>
         {auth => (
           <div>
             {!auth.user && this.renderLogin()}
             {auth.user && this.renderUser(auth)}
           </div>
         )}
-      </FirebaseAuth>
+      </Auth>
     );
   }
 }

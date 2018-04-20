@@ -3,18 +3,14 @@ import {Formik} from "formik";
 import {Redirect} from "react-router-dom";
 import {withStyles} from "material-ui/styles";
 
-import FirebaseAuth from "../FirebaseAuth";
+import Auth from "../Auth";
 import SignupDisplay from "./display";
 
 const styles = theme => ({});
 
 class SignupWrap extends Component {
   render() {
-    return (
-      <FirebaseAuth>
-        {auth => <Signup {...auth} {...this.props} />}
-      </FirebaseAuth>
-    );
+    return <Auth>{auth => <Signup {...auth} {...this.props} />}</Auth>;
   }
 }
 

@@ -26,14 +26,15 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "formik": "^0.11.11",
-    "material-ui": "^1.0.0-beta.34",
-    "material-ui-icons": "^1.0.0-beta.35",
-    "react": "^16.2.0",
-    "react-broadcast": "^0.6.2",
-    "react-dom": "^16.2.0",
-    "react-firestore": "^0.6.0",
-    "react-router-dom": "^4.2.2",
+    "@material-ui/icons": "1.0.0-beta.42",
+    "formik": "0.11.11",
+    "material-ui": "1.0.0-beta.41",
+    "react": "16.2.0",
+    "react-broadcast": "0.6.2",
+    "react-dom": "16.2.0",
+    "react-firestore": "0.6.0",
+    "react-router-dom": "4.2.2",
+    "tinytime": "^0.2.6",
     "typeface-roboto": "0.0.54"
   },
   "babel": {
