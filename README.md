@@ -184,6 +184,7 @@ Render component that provides the Firebase user object with added `details` pro
 Things I'd like to complete before general consumption.
 
 * MOAR documentation
+* Prettier & eslint
 * Support all the Firebase Auth options
   * Possibly based on firebaseui-web?
 * Better support around data loading/pagination
