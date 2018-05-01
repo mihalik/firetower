@@ -6,7 +6,7 @@ import Loading from "../Loading";
 
 export default class Collection extends Component {
   static propTypes = {
-    children: PropTypes.func.isRequired,
+    children: PropTypes.func,
     renderLoading: PropTypes.node,
   };
   render() {

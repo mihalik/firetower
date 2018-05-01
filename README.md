@@ -1,6 +1,8 @@
 # Firetower
 
-Very highly opinionated Firebase + React (create-react-app) + Material UI framework for rapid development of Firebase applications.
+Very highly opinionated Firebase + React (create-react-app) + Material UI framework for rapid development of web applications.
+
+## NOTE: This project is under very active development. All interfaces will likely change.
 
 ### Overview
 
@@ -18,13 +20,13 @@ Limitations:
 * Only supports Firebase hosting
 * Only supports material-ui-next
 * Does not support highly complex react-router configs
-* Only supports Firestore and a specific schema for storing users and user data
+* Only supports Firestore and an opinionated schema for storing users and user data
 
 ### Getting started
 
-1. Create application (TODO)
-2. Install Firetower (TODO)
-3. Create page components and configure menu
+1.  Create application (TODO)
+2.  Install Firetower (TODO)
+3.  Create page components and configure menu
 
 Simple example appplication (one page + external link, no auth):
 
@@ -61,30 +63,53 @@ ReactDOM.render(
 
 ### Component Documenation
 
-#### IsAdmin
+#### Auth
+
+* TODO: Internal component? Should it be exposed? Documented?
+
+#### Collection
+
+Wrapper around the `react-firestore` `FirestoreCollection` that handles displaying loading spinners and error messages if there is an issue loading the collection.
+
+#### DateFormat
+
+Displays dates from Firebase in a friendly format.
 
 ```
-<IsAdmin>
-  Only an admin will see this.
-</IsAdmin>
+<DateFormat date={note.created} />
 ```
 
 #### Document
 
 Wrapper around the `react-firestore` `FirestoreDocument` that handles displaying loading spinners and error messages if there is an issue loading the document.
 
-#### Loading
+#### Firestore
 
-Material-ui loading spinner that delays loading to prevent spinner flash.
+Render component to get the raw Firestore object for writing to Firestore.
 
-Example:
+#### Firetower
+
+TODO: More documentation
+Routes - order matters
 
 ```
-<FirestoreDocument
-  path={`some/path/to/something`}
-  render={({ isLoading, data }) => (isLoading ? <Loading /> : <span>{data}</span>)}
-  }}
-/>
+ReactDOM.render(
+  <Firetower
+    routes={routes}
+    renderPageTitle={renderPageTitle}
+    pageNotFound={NotFound}
+    defaultPage="home"
+  />,
+  document.getElementById("root")
+);
+```
+
+#### IsAdmin
+
+```
+<IsAdmin>
+  Only an admin will see this.
+</IsAdmin>
 ```
 
 #### Link
@@ -114,6 +139,26 @@ Example:
 <Login loggedInRedirect={NAV.home} />
 ```
 
+#### Page
+
+Component to define individual pages.
+
+```
+<Page>
+  Page contents here.
+</Page>
+```
+
+TODO: What is the shape of routes?
+
+```
+<Page>
+  {routes => (
+    <div>{routes.}
+  )}
+</Page>
+```
+
 #### Signup
 
 Props:
@@ -126,22 +171,27 @@ Example:
 <Signup signupRedirect={NAV.home} />
 ```
 
-### The Future
+#### User
 
-Overall goal is to build a highly productive framwork for apps that fit into the overall product structure. This includes both React components and Firebase function support.
+Render component that provides the Firebase user object with added `details` property from the `Users` collection.
 
-Overall goal for 'batteries included' framework:
+```
+<User>{user => <span>{user.email}</span>}</User>
+```
 
-* Auth (support all Firebase-supported methods)
-* Permissions (at least admin/not admin/paid plans)
-* Handle loading data (loading spinner, error display, pagination)
-* Some material-ui helper components (react-router Link wrapper, Firebase storage display, etc)
-* Firebase function support for emailing users (Mailgun?)
+### TODO
+
+Things I'd like to complete before general consumption.
+
+* MOAR documentation
+* Support all the Firebase Auth options
+  * Possibly based on firebaseui-web?
+* Better support around data loading/pagination
+* Improvements around overriding things like login/signup
+* Firebase function support for transactional emails (Mailgun?)
 * Firebase function support for paid plans (Stripe)
-* Replace react-scripts with built-in scripts
-  * Custom 'init' script
-  * Deploy always performs a build first
-
-```
-
-```
+  * Also permissions system for paid plans
+* Replace react-scripts with custom scripts to handle Firebase-y things better
+  * Something like preact-cli
+* Look at all the APIs and standardize
+  * Sometimes paths take a name from the routes array and sometimes they take paths

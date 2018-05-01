@@ -46,6 +46,7 @@ class SignupDisplay extends Component {
   static propTypes = {
     error: PropTypes.string,
     formData: PropTypes.object.isRequired,
+    renderTerms: PropTypes.func.isRequired,
   };
   render() {
     const {classes, error, formData} = this.props;
@@ -58,18 +59,6 @@ class SignupDisplay extends Component {
       handleBlur,
     } = formData;
 
-    const hipaaLabel = (
-      <span>
-        I have read and agree to the{" "}
-        <Link
-          as="a"
-          href="https://wellbody.bio/hipaa-privacy-authorization"
-          target="_blank"
-        >
-          HIPAA Privacy Authorization
-        </Link>
-      </span>
-    );
     return (
       <Page>
         {pageProps => (
@@ -198,24 +187,6 @@ class SignupDisplay extends Component {
                     year={values.year}
                     onChange={handleChange}
                   />
-                  <FormGroup required style={{marginTop: "1rem"}}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name="terms"
-                          value="hipaa"
-                          checked={values.terms}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      }
-                      label={hipaaLabel}
-                    />
-                    <FormHelperText error={true}>
-                      {touched.terms && errors.terms}
-                      {error && error.message}
-                    </FormHelperText>
-                  </FormGroup>
                   <Button
                     type="submit"
                     variant="raised"
@@ -224,16 +195,7 @@ class SignupDisplay extends Component {
                   >
                     Create Account
                   </Button>
-                  <Typography variant="caption">
-                    By signing up you agree to the Wellbody{" "}
-                    <Link
-                      as="a"
-                      href="https://wellbody.bio/terms"
-                      target="_blank"
-                    >
-                      terms of service.
-                    </Link>
-                  </Typography>
+                  {!!renderTerms && renderTerms}
                 </form>
               </CardContent>
             </Card>

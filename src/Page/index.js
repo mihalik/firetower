@@ -56,6 +56,8 @@ class FiretowerPageInner extends React.Component {
       routes,
       renderPageTitle,
       hidePageChrome,
+      match,
+      history,
     } = this.props;
     return (
       <div className={classes.root}>
@@ -81,7 +83,9 @@ class FiretowerPageInner extends React.Component {
           </AppBar>
         )}
         <div className={classes.content}>
-          {typeof children === "function" ? children({routes}) : children}
+          {typeof children === "function"
+            ? children({match, history})
+            : children}
         </div>
       </div>
     );

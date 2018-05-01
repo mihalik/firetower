@@ -1,9 +1,11 @@
 import React, {Component} from "react";
+import PropTypes from "prop-types";
 import {Formik} from "formik";
 import {Redirect} from "react-router-dom";
 import {withStyles} from "material-ui/styles";
 
 import Auth from "../Auth";
+import Loading from "../Loading";
 import SignupDisplay from "./display";
 
 const styles = theme => ({});
@@ -15,50 +17,30 @@ class SignupWrap extends Component {
 }
 
 class Signup extends Component {
+  static propTypes = {
+    renderTerms: PropTypes.node.isRequired,
+    nextPage: PropTypes.string.isRequired,
+  };
   state = {};
   handleSubmit = values => {
     // Make sure everything is valid
     const errors = this.validate(values);
-    console.log("Errors", errors);
     if (Object.keys(errors).length) {
       return errors;
     }
 
     const {create, location} = this.props;
     const signup = new Date();
-    const {
-      email,
-      password,
-      password2,
-      day,
-      month,
-      year,
-      terms,
-      ...profile
-    } = values;
+    const {email, password, password2, terms, ...profile} = values;
     profile.terms = signup.toISOString();
     profile.createdTime = signup.toISOString();
     profile.email = email;
-    profile.birthday = `${year}-${month}-${day}`;
-    // Get plans and coupons from the URL
-    const qs = queryString.parse(location.search);
-    profile.initialPlan = qs.plan || "";
-    profile.coupon = qs.coupon || "";
 
     create(email, password, password, profile);
   };
   validate = values => {
     const errors = {};
-    const requiredFields = [
-      "password2",
-      "fname",
-      "lname",
-      "phone",
-      "day",
-      "month",
-      "year",
-      "gender",
-    ];
+    const requiredFields = ["password2", "fname", "lname"];
     requiredFields.forEach(key => {
       if (!values[key]) {
         errors[key] = "Required";
@@ -80,35 +62,29 @@ class Signup extends Component {
     return errors;
   };
   render() {
-    const {classes, error, hasResolved, user, plan} = this.props;
-    console.log(this.props);
+    const {
+      classes,
+      error,
+      hasResolved,
+      user,
+      renderTerms,
+      nextPage,
+    } = this.props;
+    // Handle looking for user
     if (!hasResolved) {
       return <Loading />;
     }
+    // Handle user already exists (either already logged in or just created)
+    if (user) {
+      return <Redirect to={nextPage} />;
+    }
 
-    const hipaaLabel = (
-      <span>
-        I have read and agree to the{" "}
-        <Link
-          as="a"
-          href="https://wellbody.bio/hipaa-privacy-authorization"
-          target="_blank"
-        >
-          HIPAA Privacy Authorization
-        </Link>
-      </span>
-    );
     const initialValues = {
       lname: "",
       fname: "",
       email: "",
       password: "",
       password2: "",
-      phone: "",
-      day: "1",
-      month: "1",
-      year: "1980",
-      gender: null,
       terms: false,
     };
     return (
@@ -118,7 +94,13 @@ class Signup extends Component {
         validate={this.validate}
         validateOnChange={false}
       >
-        {formData => <SignupDisplay {...formData} />}
+        {formData => (
+          <SignupDisplay
+            nextPage={nextPage}
+            renderTerms={renderTerms}
+            formData={formData}
+          />
+        )}
       </Formik>
     );
   }

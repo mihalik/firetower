@@ -2,6 +2,7 @@ import Auth from "./Auth";
 import Collection from "./Collection";
 import DateFormat from "./DateFormat";
 import Document from "./Document";
+import Firestore from "./Firestore";
 import Firetower from "./Firetower";
 import IsAdmin from "./IsAdmin";
 import Link from "./Link";
@@ -16,6 +17,7 @@ export {
   Collection,
   DateFormat,
   Document,
+  Firestore,
   Firetower,
   IsAdmin,
   Link,
