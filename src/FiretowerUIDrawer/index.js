@@ -1,16 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
-import {withStyles} from "material-ui/styles";
-import Drawer from "material-ui/Drawer";
-import List, {ListItem, ListItemText, ListItemIcon} from "material-ui/List";
+import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 import Auth from "../Auth";
 
 const styles = {
   list: {
-    width: 250,
-  },
+    width: 250
+  }
 };
 
 class FiretowerDrawer extends React.Component {
@@ -18,11 +21,11 @@ class FiretowerDrawer extends React.Component {
     classes: PropTypes.object.isRequired,
     open: PropTypes.bool.isRequired,
     onToggle: PropTypes.func.isRequired,
-    routes: PropTypes.object.isRequired,
+    routes: PropTypes.object.isRequired
   };
 
   render() {
-    const {classes, open, onToggle, routes} = this.props;
+    const { classes, open, onToggle, routes } = this.props;
     return (
       <Auth>
         {auth => (
@@ -43,7 +46,7 @@ class FiretowerDrawer extends React.Component {
                     requiresAdmin,
                     requiresAuth,
                     externalLink,
-                    icon: Icon,
+                    icon: Icon
                   } = routes[key];
                   if (hideFromMenu || isUserMenu) {
                     return null;
@@ -58,8 +61,8 @@ class FiretowerDrawer extends React.Component {
                     return null;
                   }
                   const itemProps = externalLink
-                    ? {button: true, component: "a", href: externalLink}
-                    : {button: true, component: Link, to: path};
+                    ? { button: true, component: "a", href: externalLink }
+                    : { button: true, component: Link, to: path };
                   return (
                     <ListItem key={key} {...itemProps}>
                       <ListItemIcon>

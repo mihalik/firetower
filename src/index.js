@@ -7,6 +7,7 @@ import Firetower from "./Firetower";
 import IsAdmin from "./IsAdmin";
 import Link from "./Link";
 import Login from "./Login";
+import Loading from "./Loading";
 import Page from "./Page";
 import Signup from "./Signup";
 import User from "./User";
@@ -22,8 +23,9 @@ export {
   IsAdmin,
   Link,
   Login,
+  Loading,
   Page,
   Signup,
   User,
-  registerServiceWorker,
+  registerServiceWorker
 };

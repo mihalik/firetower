@@ -1,10 +1,10 @@
-import React, {Component} from "react";
-import Typography from "material-ui/Typography";
+import React, { Component } from "react";
+import Typography from "@material-ui/core/Typography";
 import Page from "../Page";
 
 export default class NotFound extends Component {
   render() {
-    const {defaultPage} = this.props;
+    const { defaultPage } = this.props;
     return (
       <Page>
         <Typography type="display1" gutterBottom>

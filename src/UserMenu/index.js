@@ -1,43 +1,44 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
-import {withStyles} from "material-ui/styles";
-import Menu, {MenuItem} from "material-ui/Menu";
-import Button from "material-ui/Button";
-import IconButton from "material-ui/IconButton";
+import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import Auth from "../Auth";
 
 const styles = {
   base: {
-    flex: 1,
-  },
+    flex: 1
+  }
 };
 
 class UserMenu extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    routes: PropTypes.object.isRequired,
+    routes: PropTypes.object.isRequired
   };
-  state = {anchorEl: null};
+  state = { anchorEl: null };
 
   handleMenuOpen = event => {
-    this.setState({anchorEl: event.currentTarget});
+    this.setState({ anchorEl: event.currentTarget });
   };
 
   handleMenuClose = () => {
-    this.setState({anchorEl: null});
+    this.setState({ anchorEl: null });
   };
 
   handleLogout = auth => () => {
     auth.actions.logout();
-    this.setState({anchorEl: null});
+    this.setState({ anchorEl: null });
   };
 
   renderUser(auth) {
-    const {classes, routes} = this.props;
-    const {anchorEl} = this.state;
+    const { classes, routes } = this.props;
+    const { anchorEl } = this.state;
     const open = !!anchorEl;
     return (
       <div className={classes.base}>
@@ -55,17 +56,17 @@ class UserMenu extends React.Component {
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: "top",
-            horizontal: "right",
+            horizontal: "right"
           }}
           transformOrigin={{
             vertical: "top",
-            horizontal: "right",
+            horizontal: "right"
           }}
           open={open}
           onClose={this.handleMenuClose}
         >
           {Object.keys(routes).map(key => {
-            const {path, display, isUserMenu} = routes[key];
+            const { path, display, isUserMenu } = routes[key];
             if (!isUserMenu) {
               return null;
             }
@@ -87,7 +88,7 @@ class UserMenu extends React.Component {
   }
 
   renderLogin() {
-    const {routes} = this.props;
+    const { routes } = this.props;
     return (
       <Button color="inherit" component={Link} to={routes.login.path}>
         Login

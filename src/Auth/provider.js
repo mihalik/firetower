@@ -1,17 +1,15 @@
-import React, {Component} from "react";
-import {Broadcast} from "react-broadcast";
+import React, { Component } from "react";
+import { Broadcast } from "react-broadcast";
 
-const auth = window.firebase.auth();
-const db = window.firebase.firestore();
 export const PROVIDER_NAME = "FiretowerAuth";
 
 export default class AuthProvider extends Component {
-  state = {user: null, error: null, message: null, hasResolved: false};
+  state = { user: null, error: null, message: null, hasResolved: false };
 
   constructor(props) {
     super(props);
-    auth.onAuthStateChanged(user => {
-      this.setState({user, hasResolved: true});
+    props.firebase.auth().onAuthStateChanged(user => {
+      this.setState({ user, hasResolved: true });
       if (user) {
         this.loadUserDetails();
       }
@@ -19,13 +17,16 @@ export default class AuthProvider extends Component {
   }
 
   loadUserDetails = () => {
-    const docRef = db.collection("users").doc(auth.currentUser.uid);
+    const docRef = this.props.firebase
+      .firestore()
+      .collection("users")
+      .doc(this.props.firebase.auth().currentUser.uid);
     docRef.get().then(doc => {
       if (doc.exists) {
         // Add details to existing user object
         let user = this.state.user;
         user.details = doc.data();
-        this.setState({user});
+        this.setState({ user });
       }
     });
   };
@@ -33,50 +34,58 @@ export default class AuthProvider extends Component {
   login = (email, password) => {
     // No need to handle the success results of signin because it will be handled by
     // the state change handler in the constructor.
-    auth.signInWithEmailAndPassword(email, password).catch(error => {
-      this.setState({error});
-    });
+    this.props.firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch(error => {
+        this.setState({ error });
+      });
   };
 
   create = (email, password, repeatPassword, profile) => {
     if (password !== repeatPassword) {
-      const error = {message: "Passwords must match"};
-      this.setState({error});
+      const error = { message: "Passwords must match" };
+      this.setState({ error });
       return;
     }
     try {
-      auth
+      this.props.firebase
+        .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          auth.currentUser.sendEmailVerification();
-          const userProfile = db.collection("users").doc(auth.currentUser.uid);
+          this.props.firebase.auth().currentUser.sendEmailVerification();
+          const userProfile = this.props.firebase
+            .firestore()
+            .collection("users")
+            .doc(this.props.firebase.auth().currentUser.uid);
           userProfile.set(profile);
         })
         .catch(error => {
-          this.setState({error});
+          this.setState({ error });
         });
     } catch (error) {
-      this.setState({error});
+      this.setState({ error });
     }
   };
 
   logout = () => {
-    const {onLogout} = this.props;
-    auth.signOut();
-    this.setState({user: null, details: null, error: null});
+    const { onLogout } = this.props;
+    this.props.firebase.auth().signOut();
+    this.setState({ user: null, details: null, error: null });
     onLogout && onLogout();
   };
 
   forgot = email => {
-    auth
+    this.props.firebase
+      .auth()
       .sendPasswordResetEmail(email)
       .then(() => {
         this.setState({
-          message: "Check your email for a link to set a new password",
+          message: "Check your email for a link to set a new password"
         });
       })
       .catch(error => {
-        this.setState({error});
+        this.setState({ error });
       });
   };
 
@@ -86,12 +95,12 @@ export default class AuthProvider extends Component {
         login: this.login,
         create: this.create,
         logout: this.logout,
-        forgot: this.forgot,
+        forgot: this.forgot
       },
       user: this.state.user,
       error: this.state.error,
       message: this.state.message,
-      hasResolved: this.state.hasResolved,
+      hasResolved: this.state.hasResolved
     };
     return (
       <Broadcast channel={PROVIDER_NAME} value={authProps}>

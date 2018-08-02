@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {withStyles} from "material-ui/styles";
+import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
 
 import Auth from "../Auth";
 import PasswordResetDisplay from "./display";
@@ -15,19 +15,19 @@ class PasswordReset extends Component {
 }
 
 class PasswordResetInner extends Component {
-  state = {email: ""};
+  state = { email: "" };
   handleFormSubmit = event => {
     event.preventDefault();
-    const {email} = this.state;
-    const {forgot} = this.props;
+    const { email } = this.state;
+    const { forgot } = this.props;
     forgot(email);
   };
   handleEmailInput = event => {
-    this.setState({email: event.target.value});
+    this.setState({ email: event.target.value });
   };
   render() {
-    const {classes, error, message} = this.props;
-    const {email} = this.state;
+    const { classes, error, message } = this.props;
+    const { email } = this.state;
     return (
       <PasswordResetDisplay
         error={error.message}
@@ -40,4 +40,4 @@ class PasswordResetInner extends Component {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(PasswordReset);
+export default withStyles(styles, { withTheme: true })(PasswordReset);

@@ -1,7 +1,7 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {Redirect} from "react-router-dom";
-import {withStyles} from "material-ui/styles";
+import { Redirect } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
 import queryString from "query-string";
 
 import Auth from "../Auth";
@@ -19,24 +19,24 @@ class LoginWrap extends Component {
 class Login extends Component {
   static propTypes = {
     loggedInRedirect: PropTypes.string.isRequired,
-    auth: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired
   };
-  state = {email: "", password: ""};
+  state = { email: "", password: "" };
   handleFormSubmit = event => {
     event.preventDefault();
-    const {email, password} = this.state;
-    const {auth} = this.props;
+    const { email, password } = this.state;
+    const { auth } = this.props;
     auth.actions.login(email, password);
   };
   handleEmailInput = event => {
-    this.setState({email: event.target.value});
+    this.setState({ email: event.target.value });
   };
   handlePasswordInput = event => {
-    this.setState({password: event.target.value});
+    this.setState({ password: event.target.value });
   };
   render() {
-    const {auth, loggedInRedirect} = this.props;
-    const {email, password} = this.state;
+    const { auth, loggedInRedirect } = this.props;
+    const { email, password } = this.state;
     const qs = queryString.parse(window.location.search);
     const isLogout = !!(qs.reason && qs.reason === "logout");
     if (auth.user) {
@@ -59,4 +59,4 @@ class Login extends Component {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(LoginWrap);
+export default withStyles(styles, { withTheme: true })(LoginWrap);

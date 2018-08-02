@@ -1,27 +1,25 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {Formik} from "formik";
-import {Redirect} from "react-router-dom";
-import {withStyles} from "material-ui/styles";
-import Typography from "material-ui/Typography";
-import TextField from "material-ui/TextField";
-import Button from "material-ui/Button";
-import Checkbox from "material-ui/Checkbox";
-import Card, {CardContent} from "material-ui/Card";
-import Radio, {RadioGroup} from "material-ui/Radio";
+import { Formik } from "formik";
+import { Redirect } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import Card, { CardContent } from "@material-ui/core/Card";
+import Radio, { RadioGroup } from "@material-ui/core/Radio";
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-} from "material-ui/Dialog";
-import {
-  FormGroup,
-  FormLabel,
-  FormHelperText,
-  FormControl,
-  FormControlLabel,
-} from "material-ui/Form";
+  DialogTitle
+} from "@material-ui/core/Dialog";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import queryString from "query-string";
 
 import Link from "../Link";
@@ -29,34 +27,34 @@ import Loading from "../Loading";
 import Page from "../Page";
 
 const styles = theme => ({
-  logo: {width: 300, padding: theme.spacing.unit * 4},
+  logo: { width: 300, padding: theme.spacing.unit * 4 },
   card: {
     maxWidth: 366,
-    margin: "0 auto",
+    margin: "0 auto"
   },
   gender: {
-    marginTop: "1.5rem",
+    marginTop: "1.5rem"
   },
   create: {
-    margin: "1.5rem 0",
-  },
+    margin: "1.5rem 0"
+  }
 });
 
 class SignupDisplay extends Component {
   static propTypes = {
     error: PropTypes.string,
     formData: PropTypes.object.isRequired,
-    renderTerms: PropTypes.func.isRequired,
+    renderTerms: PropTypes.func.isRequired
   };
   render() {
-    const {classes, error, formData} = this.props;
+    const { classes, error, formData } = this.props;
     const {
       values,
       errors,
       touched,
       handleSubmit,
       handleChange,
-      handleBlur,
+      handleBlur
     } = formData;
 
     return (
@@ -206,4 +204,4 @@ class SignupDisplay extends Component {
   }
 }
 
-export default withStyles(styles, {withTheme: true})(SignupDisplay);
+export default withStyles(styles, { withTheme: true })(SignupDisplay);

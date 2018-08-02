@@ -85,7 +85,10 @@ Wrapper around the `react-firestore` `FirestoreDocument` that handles displaying
 
 #### Firestore
 
-Render component to get the raw Firestore object for writing to Firestore.
+Render component to get the raw Firestore object for writing to Firestore. Typically this will be used for writing items to Firestore.
+
+```
+```
 
 #### Firetower
 
@@ -141,7 +144,7 @@ Example:
 
 #### Page
 
-Component to define individual pages.
+Component to define individual pages.  
 
 ```
 <Page>
@@ -149,12 +152,14 @@ Component to define individual pages.
 </Page>
 ```
 
-TODO: What is the shape of routes?
+Optionally can be a render function that is provided route information.
+
+TODO: Finish example.
 
 ```
 <Page>
-  {routes => (
-    <div>{routes.}
+  {({match, history}) => (
+    <span>The current route is {match.}</span>
   )}
 </Page>
 ```

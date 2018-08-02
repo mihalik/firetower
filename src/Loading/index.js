@@ -1,5 +1,5 @@
 import React from "react";
-import { CircularProgress } from "material-ui/Progress";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 // For now, the loader has a built-in delay of 1s to prevent the flash of
 // loading spinner that is super-distracting.  This might need to be
