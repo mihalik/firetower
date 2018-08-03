@@ -27,5 +27,5 @@ export {
   Page,
   Signup,
   User,
-  registerServiceWorker
+  registerServiceWorker,
 };

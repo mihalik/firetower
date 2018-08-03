@@ -1,30 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Formik } from "formik";
-import { Redirect } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
 import Card, { CardContent } from "@material-ui/core/Card";
-import Radio, { RadioGroup } from "@material-ui/core/Radio";
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@material-ui/core/Dialog";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import queryString from "query-string";
-
-import Link from "../Link";
-import Loading from "../Loading";
-import Page from "../Page";
 
 const styles = theme => ({
   logo: { width: 300, padding: theme.spacing.unit * 4 },
@@ -48,14 +27,7 @@ class SignupDisplay extends Component {
   };
   render() {
     const { classes, error, formData, renderTerms } = this.props;
-    const {
-      values,
-      errors,
-      touched,
-      handleSubmit,
-      handleChange,
-      handleBlur,
-    } = formData;
+    const { values, errors, touched, handleSubmit, handleChange, handleBlur } = formData;
 
     return (
       <Card className={classes.card}>
@@ -127,12 +99,7 @@ class SignupDisplay extends Component {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <Button
-              type="submit"
-              variant="raised"
-              color="secondary"
-              className={classes.create}
-            >
+            <Button type="submit" variant="raised" color="secondary" className={classes.create}>
               Create Account
             </Button>
             {!!renderTerms && renderTerms}

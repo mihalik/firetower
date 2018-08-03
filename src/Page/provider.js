@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Broadcast} from "react-broadcast";
+import React, { Component } from "react";
+import { Broadcast } from "react-broadcast";
 export const PROVIDER_NAME = "FiretowerPage";
 
 export default class FiretowerPageProvider extends Component {

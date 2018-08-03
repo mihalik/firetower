@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
-import {withStyles} from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -25,16 +25,11 @@ class FiretowerDrawer extends React.Component {
   };
 
   render() {
-    const {classes, open, onToggle, routes} = this.props;
+    const { classes, open, onToggle, routes } = this.props;
     return (
       <Auth>
         {auth => (
-          <Drawer
-            anchor="left"
-            open={open}
-            onClick={onToggle}
-            onKeyDown={onToggle}
-          >
+          <Drawer anchor="left" open={open} onClick={onToggle} onKeyDown={onToggle}>
             <div className={classes.list}>
               <List>
                 {Object.keys(routes).map(key => {
@@ -51,18 +46,15 @@ class FiretowerDrawer extends React.Component {
                   if (hideFromMenu || isUserMenu) {
                     return null;
                   }
-                  if (
-                    requiresAdmin &&
-                    (!auth.details || !auth.details.isAdmin)
-                  ) {
+                  if (requiresAdmin && (!auth.details || !auth.details.isAdmin)) {
                     return null;
                   }
                   if (requiresAuth && !auth.user) {
                     return null;
                   }
                   const itemProps = externalLink
-                    ? {button: true, component: "a", href: externalLink}
-                    : {button: true, component: Link, to: path};
+                    ? { button: true, component: "a", href: externalLink }
+                    : { button: true, component: Link, to: path };
                   return (
                     <ListItem key={key} {...itemProps}>
                       <ListItemIcon>

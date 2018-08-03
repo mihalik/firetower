@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
-import {withStyles} from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
@@ -21,24 +21,24 @@ class UserMenu extends React.Component {
     classes: PropTypes.object.isRequired,
     routes: PropTypes.object.isRequired,
   };
-  state = {anchorEl: null};
+  state = { anchorEl: null };
 
   handleMenuOpen = event => {
-    this.setState({anchorEl: event.currentTarget});
+    this.setState({ anchorEl: event.currentTarget });
   };
 
   handleMenuClose = () => {
-    this.setState({anchorEl: null});
+    this.setState({ anchorEl: null });
   };
 
   handleLogout = auth => () => {
     auth.actions.logout();
-    this.setState({anchorEl: null});
+    this.setState({ anchorEl: null });
   };
 
   renderUser(auth) {
-    const {classes, routes} = this.props;
-    const {anchorEl} = this.state;
+    const { classes, routes } = this.props;
+    const { anchorEl } = this.state;
     const open = !!anchorEl;
     return (
       <div className={classes.base}>
@@ -66,17 +66,12 @@ class UserMenu extends React.Component {
           onClose={this.handleMenuClose}
         >
           {Object.keys(routes).map(key => {
-            const {path, display, isUserMenu} = routes[key];
+            const { path, display, isUserMenu } = routes[key];
             if (!isUserMenu) {
               return null;
             }
             return (
-              <MenuItem
-                key={key}
-                component={Link}
-                to={path}
-                onClick={this.handleMenuClose}
-              >
+              <MenuItem key={key} component={Link} to={path} onClick={this.handleMenuClose}>
                 {display}
               </MenuItem>
             );
@@ -88,7 +83,7 @@ class UserMenu extends React.Component {
   }
 
   renderLogin() {
-    const {routes} = this.props;
+    const { routes } = this.props;
     return (
       <Button color="inherit" component={Link} to={routes.login.path}>
         Login

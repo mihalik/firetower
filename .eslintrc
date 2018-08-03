@@ -1,0 +1,9 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["unobtrusive", "unobtrusive/import", "unobtrusive/react"],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  }
+}

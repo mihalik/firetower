@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import Auth from "../Auth";
@@ -10,7 +10,7 @@ export default class Collection extends Component {
     renderLoading: PropTypes.node,
   };
   render() {
-    const {children, renderLoading, ...props} = this.props;
+    const { children, renderLoading, ...props } = this.props;
     return (
       <Auth>
         {auth => {

@@ -71,7 +71,7 @@ export default class AuthProvider extends Component {
   logout = () => {
     const { onLogout } = this.props;
     this.props.firebase.auth().signOut();
-    this.setState({ user: null, details: null, error: null });
+    this.setState({ user: null, error: null });
     onLogout && onLogout();
   };
 
@@ -81,7 +81,7 @@ export default class AuthProvider extends Component {
       .sendPasswordResetEmail(email)
       .then(() => {
         this.setState({
-          message: "Check your email for a link to set a new password"
+          message: "Check your email for a link to set a new password",
         });
       })
       .catch(error => {
@@ -95,12 +95,12 @@ export default class AuthProvider extends Component {
         login: this.login,
         create: this.create,
         logout: this.logout,
-        forgot: this.forgot
+        forgot: this.forgot,
       },
       user: this.state.user,
       error: this.state.error,
       message: this.state.message,
-      hasResolved: this.state.hasResolved
+      hasResolved: this.state.hasResolved,
     };
     return (
       <Broadcast channel={PROVIDER_NAME} value={authProps}>

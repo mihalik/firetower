@@ -8,9 +8,7 @@ const styles = theme => ({});
 
 class PasswordReset extends Component {
   render() {
-    return (
-      <Auth>{auth => <PasswordResetInner {...auth} {...this.props} />}</Auth>
-    );
+    return <Auth>{auth => <PasswordResetInner {...auth} {...this.props} />}</Auth>;
   }
 }
 

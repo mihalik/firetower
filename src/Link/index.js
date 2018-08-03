@@ -6,8 +6,8 @@ const styles = theme => {
   return {
     link: {
       ...theme.typography.body1,
-      color: theme.palette.primary.main
-    }
+      color: theme.palette.primary.main,
+    },
   };
 };
 

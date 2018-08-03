@@ -4,6 +4,11 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "release": "standard-version",
+    "posttag": "git push --follow-tags origin master",
+    "precommit": "npm run lint-staged",
+    "lint-staged": "lint-staged",
+    "prettier": "prettier --write 'src/**/*.js'",
     "build": "babel ./src --out-dir ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,16 +24,26 @@
   "homepage": "https://github.com/mihalik/firetower#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.6",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "create-react-app": "^1.5.2",
-    "prettier": "^1.10.2"
+    "eslint": "^5.2.0",
+    "eslint-config-unobtrusive": "^1.2.2",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-react": "^7.10.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.0",
+    "prettier": "^1.14.0",
+    "standard-version": "^4.4.0"
   },
   "dependencies": {
     "@material-ui/core": "1.4.2",
     "@material-ui/icons": "2.0.0",
     "formik": "1.0.2",
+    "prop-types": "^15.6.2",
+    "query-string": "^6.1.0",
     "react": "16.4.1",
     "react-broadcast": "0.6.2",
     "react-dom": "16.4.1",
@@ -36,6 +51,9 @@
     "react-router-dom": "4.2.2",
     "tinytime": "^0.2.6",
     "typeface-roboto": "0.0.54"
+  },
+  "lint-staged": {
+    "src/**/*.js": ["prettier", "eslint", "git add"]
   },
   "babel": {
     "presets": ["env", "react", "stage-0"]

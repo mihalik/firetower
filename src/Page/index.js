@@ -57,11 +57,7 @@ class FiretowerPageInner extends React.Component {
     } = this.props;
     return (
       <div className={classes.root}>
-        <FiretowerUIDrawer
-          routes={routes}
-          open={drawerOpen}
-          onToggle={this.handleDrawerToggle}
-        />
+        <FiretowerUIDrawer routes={routes} open={drawerOpen} onToggle={this.handleDrawerToggle} />
         {!hidePageChrome && (
           <AppBar position="static" className={classes.appBar}>
             <Toolbar>
@@ -79,9 +75,7 @@ class FiretowerPageInner extends React.Component {
           </AppBar>
         )}
         <div className={classes.content}>
-          {typeof children === "function"
-            ? children({ match, history, routes })
-            : children}
+          {typeof children === "function" ? children({ match, history, routes }) : children}
         </div>
       </div>
     );

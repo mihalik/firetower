@@ -1,21 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import Card, {
-  CardContent,
-  CardActions,
-  CardMedia,
-} from "@material-ui/core/Card";
+import Card, { CardContent, CardActions } from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import Input, { InputAdornment } from "@material-ui/core/Input";
 import Grid from "@material-ui/core/Grid";
 import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
 import Button from "@material-ui/core/Button";
-import queryString from "query-string";
-
-import Snackbar from "../Snackbar";
 
 // The original design for this login page is kinda based on this:
 // https://dribbble.com/shots/2089361-Login-page
@@ -74,10 +66,7 @@ class LoginDisplay extends Component {
                   value={email}
                   onInput={onEmailInput}
                   startAdornment={
-                    <InputAdornment
-                      position="start"
-                      className={classes.adornment}
-                    >
+                    <InputAdornment position="start" className={classes.adornment}>
                       <EmailIcon className={classes.adornmentIcon} />
                     </InputAdornment>
                   }
@@ -92,10 +81,7 @@ class LoginDisplay extends Component {
                     value={password}
                     onInput={onPasswordInput}
                     startAdornment={
-                      <InputAdornment
-                        position="start"
-                        className={classes.adornment}
-                      >
+                      <InputAdornment position="start" className={classes.adornment}>
                         <LockIcon className={classes.adornmentIcon} />
                       </InputAdornment>
                     }

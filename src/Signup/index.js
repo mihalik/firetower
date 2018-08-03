@@ -1,8 +1,8 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {Formik} from "formik";
-import {Redirect} from "react-router-dom";
-import {withStyles} from "@material-ui/core/styles";
+import { Formik } from "formik";
+import { Redirect } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
 
 import Auth from "../Auth";
 import Loading from "../Loading";
@@ -29,9 +29,9 @@ class Signup extends Component {
       return errors;
     }
 
-    const {create, location} = this.props;
+    const { create, location } = this.props;
     const signup = new Date();
-    const {email, password, password2, terms, ...profile} = values;
+    const { email, password, password2, terms, ...profile } = values;
     profile.terms = signup.toISOString();
     profile.createdTime = signup.toISOString();
     profile.email = email;
@@ -62,14 +62,7 @@ class Signup extends Component {
     return errors;
   };
   render() {
-    const {
-      classes,
-      error,
-      hasResolved,
-      user,
-      renderTerms,
-      nextPage,
-    } = this.props;
+    const { classes, error, hasResolved, user, renderTerms, nextPage } = this.props;
     // Handle looking for user
     if (!hasResolved) {
       return <Loading />;
@@ -95,15 +88,11 @@ class Signup extends Component {
         validateOnChange={false}
       >
         {formData => (
-          <SignupDisplay
-            nextPage={nextPage}
-            renderTerms={renderTerms}
-            formData={formData}
-          />
+          <SignupDisplay nextPage={nextPage} renderTerms={renderTerms} formData={formData} />
         )}
       </Formik>
     );
   }
 }
 
-export default withStyles(styles, {withTheme: true})(SignupWrap);
+export default withStyles(styles, { withTheme: true })(SignupWrap);

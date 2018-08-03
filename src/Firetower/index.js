@@ -1,13 +1,8 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from "react-router-dom";
-import {MuiThemeProvider} from "@material-ui/core/styles";
-import {FirestoreProvider} from "react-firestore";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import { FirestoreProvider } from "react-firestore";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "typeface-roboto";
 
@@ -17,7 +12,7 @@ import Auth from "../Auth";
 import AuthProvider from "../Auth/provider";
 import NotFound from "../NotFound";
 
-const RouteWrap = ({component: Component, auth, login, ...routeProps}) => {
+const RouteWrap = ({ component: Component, auth, login, routes, ...routeProps }) => {
   if (routeProps.externalPath || !Component) {
     return null;
   }
@@ -35,20 +30,13 @@ const RouteWrap = ({component: Component, auth, login, ...routeProps}) => {
         // If this requires auth but we don't have a user (yet) display loader
         // or perform redirect.
         if (props.requiresAuth && !auth.user) {
-          display = auth.hasResolved ? (
-            <Redirect to={routes.login.path} />
-          ) : (
-            loader
-          );
+          display = auth.hasResolved ? <Redirect to={routes.login.path} /> : loader;
         }
         // If this required admin and we don't have user details or user is
         // not admin, don't display anything.
         // NOTE: We should be better about what gets displayed in the future
         // and actually try and display a spinner and whatever.
-        if (
-          props.requiresAdmin &&
-          (!auth.user.details || !auth.user.details.isAdmin)
-        ) {
+        if (props.requiresAdmin && (!auth.user.details || !auth.user.details.isAdmin)) {
           display = empty;
         }
         // Otherwise, show the component
@@ -71,20 +59,21 @@ class RoutesInner extends Component {
   };
   defaultProps = {
     pageNotFound: NotFound,
+    firebase: window.firebase,
   };
   handleLogin = () => {
-    const {routes, defaultPage} = this.props;
+    const { routes, defaultPage } = this.props;
     // After login, go to default page or the first page in the routes object
     const finalDefaultPage = defaultPage || Object.keys(routes)[0];
     this.context.router.history.push(routes[finalDefaultPage].path);
   };
   handleLogout = () => {
-    const {routes} = this.props;
+    const { routes } = this.props;
     // After logout, go to the 'login' page
     this.context.router.history.push(`${routes.login.path}?reason=logout`);
   };
   renderRouteChildren = auth => {
-    const {routes, defaultPage, renderPageTitle, pageNotFound} = this.props;
+    const { routes, defaultPage, renderPageTitle, pageNotFound } = this.props;
     const elements = Object.keys(routes).map(key => (
       <RouteWrap
         auth={auth}
@@ -94,31 +83,18 @@ class RoutesInner extends Component {
         {...routes[key]}
       />
     ));
-    elements.push(
-      <Route path="/404" key="404route" component={pageNotFound} />
-    );
+    elements.push(<Route path="/404" key="404route" component={pageNotFound} />);
     elements.push(<Redirect to="/404" key="404redirect" />);
     return elements;
   };
   render() {
-    const {
-      routes,
-      defaultPage,
-      renderPageTitle,
-      pageNotFound,
-      firebase,
-    } = this.props;
+    const { routes, defaultPage, renderPageTitle, pageNotFound, firebase } = this.props;
     return (
-      <AuthProvider
-        onLogout={this.handleLogout}
-        firebase={firebase || window.firebase}
-      >
-        <FirestoreProvider firebase={firebase || window.firebase}>
+      <AuthProvider onLogout={this.handleLogout} firebase={firebase}>
+        <FirestoreProvider firebase={firebase}>
           <MuiThemeProvider theme={theme}>
             <CssBaseline />
-            <Auth>
-              {auth => <Switch>{this.renderRouteChildren(auth)}</Switch>}
-            </Auth>
+            <Auth>{auth => <Switch>{this.renderRouteChildren(auth)}</Switch>}</Auth>
           </MuiThemeProvider>
         </FirestoreProvider>
       </AuthProvider>

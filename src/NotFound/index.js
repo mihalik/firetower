@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
+
 import Page from "../Page";
+import Link from "../Link";
 
 export default class NotFound extends Component {
   render() {
