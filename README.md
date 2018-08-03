@@ -88,6 +88,7 @@ Wrapper around the `react-firestore` `FirestoreDocument` that handles displaying
 Render component to get the raw Firestore object for writing to Firestore. Typically this will be used for writing items to Firestore.
 
 ```
+
 ```
 
 #### Firetower
@@ -135,6 +136,8 @@ Examples:
 Props:
 
 * `loggedInRedirect` - Path to redirect a user that visits the page while logged in
+* `displayBefore` - Item to be rendered above the login box.
+* `displayAfter` - Item to be rendered above the login box. Can be used for signup links, account info, etc.
 
 Example:
 
@@ -144,7 +147,7 @@ Example:
 
 #### Page
 
-Component to define individual pages.  
+Component to define individual pages.
 
 ```
 <Page>
@@ -188,16 +191,23 @@ Render component that provides the Firebase user object with added `details` pro
 
 Things I'd like to complete before general consumption.
 
+#### Short-term
+
 * MOAR documentation
 * Prettier & eslint
 * Support all the Firebase Auth options
   * Possibly based on firebaseui-web?
 * Better support around data loading/pagination
-* Improvements around overriding things like login/signup
 * Firebase function support for transactional emails (Mailgun?)
 * Firebase function support for paid plans (Stripe)
   * Also permissions system for paid plans
-* Replace react-scripts with custom scripts to handle Firebase-y things better
-  * Something like preact-cli
 * Look at all the APIs and standardize
   * Sometimes paths take a name from the routes array and sometimes they take paths
+
+#### Long-term
+
+* Improvements around overriding things like login/signup
+* Support all the Firebase Auth options
+  * Possibly based on firebaseui-web?
+* Replace react-scripts with custom scripts to handle Firebase-y things better
+  * Something like preact-cli

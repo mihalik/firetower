@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import {createMuiTheme} from "@material-ui/core/styles";
 import primary from "@material-ui/core/colors/indigo";
 import secondary from "@material-ui/core/colors/amber";
 import error from "@material-ui/core/colors/red";
@@ -16,8 +16,8 @@ const theme = createMuiTheme({
     // Used to shift a color's luminance by approximately
     // two indexes within its tonal palette.
     // E.g., shift from Red 500 to Red 300 or Red 700.
-    tonalOffset: 0.2
-  }
+    tonalOffset: 0.2,
+  },
 });
 
 export default theme;

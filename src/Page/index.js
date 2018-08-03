@@ -1,15 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { Subscriber } from "react-broadcast";
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import { PROVIDER_NAME } from "./provider";
 import UserMenu from "../UserMenu";
@@ -17,21 +13,21 @@ import FiretowerUIDrawer from "../FiretowerUIDrawer";
 
 const styles = theme => ({
   logo: {
-    height: 28
+    height: 28,
   },
   root: {
-    width: "100%"
+    width: "100%",
   },
   flex: {
-    flex: 1
+    flex: 1,
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
+    marginRight: 20,
   },
   content: {
-    padding: "2rem"
-  }
+    padding: "2rem",
+  },
 });
 
 class FiretowerPageInner extends React.Component {
@@ -40,7 +36,7 @@ class FiretowerPageInner extends React.Component {
     children: PropTypes.node.isRequired,
     hidePageChrome: PropTypes.bool,
     routes: PropTypes.object.isRequired,
-    renderPageTitle: PropTypes.func.isRequired
+    renderPageTitle: PropTypes.func.isRequired,
   };
   state = { drawerOpen: false };
 
@@ -57,7 +53,7 @@ class FiretowerPageInner extends React.Component {
       renderPageTitle,
       hidePageChrome,
       match,
-      history
+      history,
     } = this.props;
     return (
       <div className={classes.root}>
@@ -84,7 +80,7 @@ class FiretowerPageInner extends React.Component {
         )}
         <div className={classes.content}>
           {typeof children === "function"
-            ? children({ match, history })
+            ? children({ match, history, routes })
             : children}
         </div>
       </div>

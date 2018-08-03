@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Card, {
   CardContent,
   CardActions,
-  CardMedia
+  CardMedia,
 } from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -14,17 +14,17 @@ import Input, { InputAdornment } from "@material-ui/core/Input";
 const styles = theme => ({
   card: {
     marginTop: 100,
-    minWidth: 300
+    minWidth: 300,
   },
   media: {
     backgroundColor: theme.palette.primary.dark,
-    height: 20
+    height: 20,
   },
   adornment: {
     color: theme.palette.text.secondary,
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
-  adornmentIcon: { paddingTop: 6 }
+  adornmentIcon: { paddingTop: 6 },
 });
 
 class PasswordResetDisplay extends Component {
@@ -33,7 +33,7 @@ class PasswordResetDisplay extends Component {
     message: PropTypes.string,
     email: PropTypes.string.isRequired,
     onFormSubmit: PropTypes.func.isRequired,
-    onEmailInput: PropTypes.func.isRequired
+    onEmailInput: PropTypes.func.isRequired,
   };
   render() {
     const {
@@ -42,7 +42,7 @@ class PasswordResetDisplay extends Component {
       message,
       email,
       onFormSubmit,
-      onEmailInput
+      onEmailInput,
     } = this.props;
     return (
       <form onSubmit={onFormSubmit}>

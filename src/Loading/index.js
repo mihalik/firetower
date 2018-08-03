@@ -7,10 +7,10 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const LOADER_DELAY = 1000;
 
 export default class Loading extends React.Component {
-  state = { isShowing: false };
+  state = {isShowing: false};
   componentDidMount() {
     this.timeout = setTimeout(() => {
-      this.setState({ isShowing: true });
+      this.setState({isShowing: true});
     }, LOADER_DELAY);
   }
 
@@ -19,7 +19,7 @@ export default class Loading extends React.Component {
   }
 
   render() {
-    const { isShowing } = this.props;
+    const {isShowing} = this.props;
     if (!isShowing) {
       return null;
     }

@@ -5,7 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Card, {
   CardContent,
   CardActions,
-  CardMedia
+  CardMedia,
 } from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import Input, { InputAdornment } from "@material-ui/core/Input";
@@ -24,17 +24,17 @@ const styles = theme => ({
   card: {
     marginTop: theme.spacing.unit * 4,
     width: 300,
-    margin: "0 auto"
+    margin: "0 auto",
   },
   cardTop: {
     backgroundColor: theme.palette.primary.dark,
-    height: 20
+    height: 20,
   },
   adornment: {
     color: theme.palette.text.secondary,
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
-  adornmentIcon: { paddingTop: 6 }
+  adornmentIcon: { paddingTop: 6 },
 });
 
 class LoginDisplay extends Component {
@@ -44,7 +44,7 @@ class LoginDisplay extends Component {
     password: PropTypes.string.isRequired,
     onFormSubmit: PropTypes.func.isRequired,
     onEmailInput: PropTypes.func.isRequired,
-    onPasswordInput: PropTypes.func.isRequired
+    onPasswordInput: PropTypes.func.isRequired,
   };
 
   render() {
@@ -55,7 +55,9 @@ class LoginDisplay extends Component {
       onFormSubmit,
       onEmailInput,
       onPasswordInput,
-      classes
+      classes,
+      isResetPassword,
+      onToggleForgotClick,
     } = this.props;
 
     return (
@@ -81,28 +83,31 @@ class LoginDisplay extends Component {
                   }
                 />
               </Grid>
-              <Grid item>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="password"
-                  value={password}
-                  onInput={onPasswordInput}
-                  startAdornment={
-                    <InputAdornment
-                      position="start"
-                      className={classes.adornment}
-                    >
-                      <LockIcon className={classes.adornmentIcon} />
-                    </InputAdornment>
-                  }
-                />
-              </Grid>
+              {!isResetPassword && (
+                <Grid item>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="password"
+                    value={password}
+                    onInput={onPasswordInput}
+                    startAdornment={
+                      <InputAdornment
+                        position="start"
+                        className={classes.adornment}
+                      >
+                        <LockIcon className={classes.adornmentIcon} />
+                      </InputAdornment>
+                    }
+                  />
+                </Grid>
+              )}
             </div>
+            <span onClick={onToggleForgotClick}>Forgot password?</span>
           </CardContent>
           <CardActions>
             <Button variant="raised" color="secondary" type="submit">
-              Login
+              {isResetPassword ? "Reset Password" : "Login"}
             </Button>
           </CardActions>
         </Card>
