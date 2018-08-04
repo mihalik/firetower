@@ -21,7 +21,7 @@ const RouteWrap = ({ component: Component, auth, login, routes, ...routeProps })
       {...routeProps}
       render={props => {
         let display = (
-          <PageProvider key={routeProps.path} {...props} {...routeProps}>
+          <PageProvider key={routeProps.path} routes={routes} {...props} {...routeProps}>
             <Component {...props} {...routeProps} />
           </PageProvider>
         );
