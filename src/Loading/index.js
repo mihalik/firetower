@@ -1,5 +1,5 @@
 import React from "react";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { LinearProgress } from "rmwc/LinearProgress";
 
 // For now, the loader has a built-in delay of 1s to prevent the flash of
 // loading spinner that is super-distracting.  This might need to be
@@ -23,6 +23,6 @@ export default class Loading extends React.Component {
     if (!isShowing) {
       return null;
     }
-    return <CircularProgress />;
+    return <LinearProgress determinate={false} />;
   }
 }

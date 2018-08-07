@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Card, { CardContent, CardActions } from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
-import Input, { InputAdornment } from "@material-ui/core/Input";
-import Grid from "@material-ui/core/Grid";
+import { Card, CardContent, CardActions } from "rmwc/Card";
+import { Typography } from "rmwc/Typography";
+import { TextField } from "rmwc/TextField";
+import { Grid } from "rmwc/Grid";
 import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
-import Button from "@material-ui/core/Button";
+import { Button } from "rmwc/Button";
 
 // The original design for this login page is kinda based on this:
 // https://dribbble.com/shots/2089361-Login-page
@@ -29,7 +28,7 @@ const styles = theme => ({
   adornmentIcon: { paddingTop: 6 },
 });
 
-class LoginDisplay extends Component {
+export default class LoginDisplay extends Component {
   static propTypes = {
     errorMessage: PropTypes.string,
     email: PropTypes.string.isRequired,
@@ -47,44 +46,37 @@ class LoginDisplay extends Component {
       onFormSubmit,
       onEmailInput,
       onPasswordInput,
-      classes,
       isResetPassword,
       onToggleForgotClick,
     } = this.props;
 
     return (
       <form onSubmit={onFormSubmit}>
-        <Card className={classes.card}>
-          <div className={classes.cardTop} />
+        <Card style={styles({}).card}>
+          <div style={styles({}).cardTop} />
           {errorMessage && <Typography>{errorMessage}</Typography>}
           <CardContent>
             <div>
               <Grid item>
-                <Input
+                <TextField
                   id="email"
                   placeholder="email"
                   value={email}
                   onInput={onEmailInput}
-                  startAdornment={
-                    <InputAdornment position="start" className={classes.adornment}>
-                      <EmailIcon className={classes.adornmentIcon} />
-                    </InputAdornment>
-                  }
+                  box
+                  withLeadingIcon={<EmailIcon style={styles({}).adornmentIcon} />}
                 />
               </Grid>
               {!isResetPassword && (
                 <Grid item>
-                  <Input
+                  <TextField
                     id="password"
                     type="password"
                     placeholder="password"
                     value={password}
                     onInput={onPasswordInput}
-                    startAdornment={
-                      <InputAdornment position="start" className={classes.adornment}>
-                        <LockIcon className={classes.adornmentIcon} />
-                      </InputAdornment>
-                    }
+                    box
+                    withLeadingIcon={<LockIcon style={styles({}).adornmentIcon} />}
                   />
                 </Grid>
               )}
@@ -101,5 +93,3 @@ class LoginDisplay extends Component {
     );
   }
 }
-
-export default withStyles(styles, { withTheme: true })(LoginDisplay);

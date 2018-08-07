@@ -1,12 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { Drawer } from "rmwc/Drawer";
+import { List, ListItem, ListItemText, ListItemGraphic } from "rmwc/List";
 
 import Auth from "../Auth";
 
@@ -16,7 +12,7 @@ const styles = {
   },
 };
 
-class FiretowerDrawer extends React.Component {
+export default class FiretowerDrawer extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     open: PropTypes.bool.isRequired,
@@ -25,12 +21,12 @@ class FiretowerDrawer extends React.Component {
   };
 
   render() {
-    const { classes, open, onToggle, routes } = this.props;
+    const { open, onToggle, routes } = this.props;
     return (
       <Auth>
         {auth => (
           <Drawer anchor="left" open={open} onClick={onToggle} onKeyDown={onToggle}>
-            <div className={classes.list}>
+            <div style={styles.list}>
               <List>
                 {Object.keys(routes).map(key => {
                   const {
@@ -57,9 +53,9 @@ class FiretowerDrawer extends React.Component {
                     : { button: true, component: Link, to: path };
                   return (
                     <ListItem key={key} {...itemProps}>
-                      <ListItemIcon>
+                      <ListItemGraphic>
                         <Icon />
-                      </ListItemIcon>
+                      </ListItemGraphic>
                       <ListItemText primary={display} />
                     </ListItem>
                   );
@@ -72,5 +68,3 @@ class FiretowerDrawer extends React.Component {
     );
   }
 }
-
-export default withStyles(styles)(FiretowerDrawer);

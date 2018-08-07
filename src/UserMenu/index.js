@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
+import { Menu, MenuItem } from "rmwc/Menu";
+import { Button } from "rmwc/Button";
+import { IconButton } from "rmwc/IconButton";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import Auth from "../Auth";
@@ -16,9 +14,8 @@ const styles = {
   },
 };
 
-class UserMenu extends React.Component {
+export default class UserMenu extends React.Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
     routes: PropTypes.object.isRequired,
   };
   state = { anchorEl: null };
@@ -37,11 +34,11 @@ class UserMenu extends React.Component {
   };
 
   renderUser(auth) {
-    const { classes, routes } = this.props;
+    const { routes } = this.props;
     const { anchorEl } = this.state;
     const open = !!anchorEl;
     return (
-      <div className={classes.base}>
+      <div style={styles.base}>
         {/* <div>{auth.user.email}</div> */}
         <IconButton
           aria-owns={open ? "menu-appbar" : null}
@@ -104,5 +101,3 @@ class UserMenu extends React.Component {
     );
   }
 }
-
-export default withStyles(styles)(UserMenu);

@@ -2,15 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import { Redirect } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
 
 import Auth from "../Auth";
 import Loading from "../Loading";
 import SignupDisplay from "./display";
 
-const styles = theme => ({});
-
-class SignupWrap extends Component {
+export default class SignupWrap extends Component {
   render() {
     return <Auth>{auth => <Signup {...auth} {...this.props} />}</Auth>;
   }
@@ -94,5 +91,3 @@ class Signup extends Component {
     );
   }
 }
-
-export default withStyles(styles, { withTheme: true })(SignupWrap);

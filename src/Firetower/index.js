@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
-import { MuiThemeProvider } from "@material-ui/core/styles";
 import { FirestoreProvider } from "react-firestore";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { ThemeProvider } from "rmwc/Theme";
 import "typeface-roboto";
 
-import theme from "./baseTheme";
+import "material-components-web/dist/material-components-web.min.css";
+
 import PageProvider from "../Page/provider";
 import Auth from "../Auth";
 import AuthProvider from "../Auth/provider";
@@ -92,15 +92,13 @@ class RoutesInner extends Component {
     return (
       <AuthProvider onLogout={this.handleLogout} firebase={firebase}>
         <FirestoreProvider firebase={firebase}>
-          <MuiThemeProvider theme={theme}>
-            <CssBaseline />
-            <Auth>{auth => <Switch>{this.renderRouteChildren(auth)}</Switch>}</Auth>
-          </MuiThemeProvider>
+          <Auth>{auth => <Switch>{this.renderRouteChildren(auth)}</Switch>}</Auth>
         </FirestoreProvider>
       </AuthProvider>
     );
   }
 }
+// <ThemeProvider>
 
 export default class Firetower extends Component {
   render() {

@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
 import queryString from "query-string";
 
 import Auth from "../Auth";
 import Snackbar from "../Snackbar";
 import LoginDisplay from "./display";
 
-const styles = theme => ({});
-
-class LoginWrap extends Component {
+export default class LoginWrap extends Component {
   render() {
     return <Auth>{auth => <Login auth={auth} {...this.props} />}</Auth>;
   }
@@ -79,5 +76,3 @@ class Login extends Component {
     );
   }
 }
-
-export default withStyles(styles, { withTheme: true })(LoginWrap);

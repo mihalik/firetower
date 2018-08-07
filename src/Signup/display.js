@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Card, { CardContent } from "@material-ui/core/Card";
+import { TextField } from "rmwc/TextField";
+import { Button } from "rmwc/Button";
+import { Card, CardContent } from "rmwc/Card";
 
-const styles = theme => ({
-  logo: { width: 300, padding: theme.spacing.unit * 4 },
+const styles = {
+  logo: { width: 300, padding: 16 * 4 },
   card: {
     maxWidth: 366,
     margin: "0 auto",
@@ -17,20 +16,20 @@ const styles = theme => ({
   create: {
     margin: "1.5rem 0",
   },
-});
+};
 
-class SignupDisplay extends Component {
+export default class SignupDisplay extends Component {
   static propTypes = {
     error: PropTypes.string,
     formData: PropTypes.object.isRequired,
     renderTerms: PropTypes.func.isRequired,
   };
   render() {
-    const { classes, error, formData, renderTerms } = this.props;
+    const { error, formData, renderTerms } = this.props;
     const { values, errors, touched, handleSubmit, handleChange, handleBlur } = formData;
 
     return (
-      <Card className={classes.card}>
+      <Card style={styles.card}>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <TextField
@@ -99,7 +98,7 @@ class SignupDisplay extends Component {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <Button type="submit" variant="raised" color="secondary" className={classes.create}>
+            <Button type="submit" variant="raised" color="secondary" style={styles.create}>
               Create Account
             </Button>
             {!!renderTerms && renderTerms}
@@ -109,5 +108,3 @@ class SignupDisplay extends Component {
     );
   }
 }
-
-export default withStyles(styles, { withTheme: true })(SignupDisplay);

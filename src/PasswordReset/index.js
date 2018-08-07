@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
 
 import Auth from "../Auth";
 import PasswordResetDisplay from "./display";
 
-const styles = theme => ({});
-
-class PasswordReset extends Component {
+export default class PasswordReset extends Component {
   render() {
     return <Auth>{auth => <PasswordResetInner {...auth} {...this.props} />}</Auth>;
   }
@@ -24,7 +21,7 @@ class PasswordResetInner extends Component {
     this.setState({ email: event.target.value });
   };
   render() {
-    const { classes, error, message } = this.props;
+    const { error, message } = this.props;
     const { email } = this.state;
     return (
       <PasswordResetDisplay
@@ -37,5 +34,3 @@ class PasswordResetInner extends Component {
     );
   }
 }
-
-export default withStyles(styles, { withTheme: true })(PasswordReset);

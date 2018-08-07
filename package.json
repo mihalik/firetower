@@ -42,20 +42,30 @@
     "@material-ui/core": "1.4.2",
     "@material-ui/icons": "2.0.0",
     "formik": "1.0.2",
+    "material-components-web": "^0.38.0",
     "prop-types": "^15.6.2",
-    "query-string": "^6.1.0",
+    "query-string": "5.0.0",
     "react": "16.4.1",
     "react-broadcast": "0.6.2",
     "react-dom": "16.4.1",
     "react-firestore": "0.6.0",
     "react-router-dom": "4.2.2",
+    "rmwc": "^1.8.3",
     "tinytime": "^0.2.6",
     "typeface-roboto": "0.0.54"
   },
   "lint-staged": {
-    "src/**/*.js": ["prettier", "eslint", "git add"]
+    "src/**/*.js": [
+      "prettier",
+      "eslint",
+      "git add"
+    ]
   },
   "babel": {
-    "presets": ["env", "react", "stage-0"]
+    "presets": [
+      "env",
+      "react",
+      "stage-0"
+    ]
   }
 }
